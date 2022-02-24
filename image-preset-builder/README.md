@@ -12,7 +12,7 @@ You could pick the image with preset by either using the custom field or using t
 
 The fetched entry will have similar structure. In this case we have the custom field under the name custom-image-field.
 
-```json
+```js
 {
 
   "title": "Preset Picker Demo",
@@ -54,7 +54,7 @@ Here, we have the preset data and extension_uid inside the metadata, and the ass
 
 This is what an RTE schema will look like. Here, we have the JSON RTE under the name json_rte.
 
-```json
+```js
 {
   "title": "Preset Picker Demo",
   "json_rte": {
@@ -99,16 +99,16 @@ Go to [image-preset-builder](https://github.com/contentstack/app-utils/tree/main
 
 1. From the **ImageTransformation** file, we will use resolvePresetByPresetUID() function to generate an URL for the image that will contain the preset information. This function will take one object as an argument and this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema.
 
-For e.g., here we extract asset from custom-image-field.asset, presetUID from custom-image-field.metadata.preset.uid and extension_uid from custom-image-field.metadata.extension_uid.
+    For e.g., here we extract asset from custom-image-field.asset, presetUID from custom-image-field.metadata.preset.uid and extension_uid from custom-image-field.metadata.extension_uid.
 
-This function will return a **new asset object containing the new image URL.** Now, get the URL from the new asset and pass it to the <img/> tag’s src attribute. This will resolve most of your image transformation. But, there is some transformation that needs to have CSS styles defined locally in the project. We also need to take care of the focal point feature, locally.
+    This function will return a **new asset object containing the new image URL.** Now, get the URL from the new asset and pass it to the <img/> tag’s src attribute. This will resolve most of your image transformation. But, there is some transformation that needs to have CSS styles defined locally in the project. We also need to take care of the focal point feature, locally.
 
 1. So, the next step will be to generate the CSS styles from the preset. For this, we are going to use resolvePresetStylesByPresetUID() function. This function accepts one object as an argument and this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema.
    This function will return inline styles for the image. These styles could be added to the image.
 1. Finally, we will need to handle the focal point (if applicable). First, we need to get the co-ordinates of the focal point. For this, we will use fetchPresetByPresetUID(). this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema. This function will return a preset object.
    For e.g., this is how the return preset object will look like.
 
-```json
+```js
 {
     "uid": "sample-uid",
     "name": "Focal Point",
