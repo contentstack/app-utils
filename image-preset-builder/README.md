@@ -14,37 +14,21 @@ The fetched entry will have similar structure. In this case we have the custom f
 
 ```js
 {
-
   "title": "Preset Picker Demo",
-
   "custom-image-field": {
-
     "uid": "sample-uid",
-
     "metadata": {
-
       "preset": {
-
         "uid": "sample-preset-uid",
-
         ...
-
       },
-
       "extension_uid": "sample-extension-uid"
-
     },
-
     "asset": {
-
         "url":"https://example.com/image.jpg",
-
         ...
-
     }
-
   }
-
 }
 ```
 
