@@ -35,8 +35,8 @@ public class Preset {
         String assetUrl = (String) asset.get(URL);
         try {
             assetUrl = findPresetOptions(presetOptionKEYS, assetUrl);
-        } catch (Exception e) {
-            e.printStackTrace();
+        }catch (MalformedURLException | URISyntaxException e) {
+           throw new Exception(e.getLocalizedMessage());
         }
         return assetUrl;
     }
