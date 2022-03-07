@@ -2,15 +2,22 @@
 
 ### Fetch the entry containing preset details
 
-First, we need to get the image with preset. For this, we need to fetch the entry where you have used the image with preset
+First, you need to fetch the image that contains a preset. For this, you need to retrieve the entry where you have used a specific preset version of an image.
 
 ### Get the schema for asset
 
-You could pick the image with preset by either using the custom field or using the RTE plugin. The resulting schema will need **preset data** and **asset data.**
+You can add a preset version of an image in two locations:
+
+-   Custom fields
+-   JSON Rich Text Editor Plugins
+
+You can retrieve the **preset** and **asset data** from the resulting schema for the above locations.
 
 #### Custom field
 
-The fetched entry will have similar structure. In this case we have the custom field under the name custom-image-field.
+Let's consider that an entry has a Custom field with the name custom-image-field.
+
+When you fetch an entry, its schema will look as follows:
 
 ```js
 {
@@ -32,11 +39,13 @@ The fetched entry will have similar structure. In this case we have the custom f
 }
 ```
 
-Here, we have the preset data and extension_uid inside the metadata, and the asset is at the root of the custom field.
+In the above schema, the preset data and extension_uid are specified under the metadata section, and the asset data is returned at the root level of the Custom field schema.
 
-#### RTE plugin
+#### JSON Rich Text Editor Plugin
 
-This is what an RTE schema will look like. Here, we have the JSON RTE under the name json_rte.
+Let's consider that an entry has a JSON Rich Text Editor field with the name json-rte. This field contains a plugin of type "reference."
+
+When you fetch an entry, its schema will look as follows:
 
 ```js
 {
@@ -73,42 +82,67 @@ This is what an RTE schema will look like. Here, we have the JSON RTE under the 
 }
 ```
 
-Here, the plugin will have a type of reference. The preset data and extension_uid could be found under the attrs of the plugin. The asset could be found under the \_embedded_items which are stored at the root of the entry schema. Learn more about the embedded_items.
+In the above schema, the JSON RTE plugin is of reference type. The preset data and extension_uid are found under the attrs section of the JSON RTE schema. You can find the asset under the \_embedded_items section located at the root level of the entry schema. Learn more about [Embedded Items](https://www.contentstack.com/docs/developers/json-rich-text-editor#embed-entries-or-assets-within-json-rte)[ within JSON RTE](https://www.contentstack.com/docs/developers/json-rich-text-editor#embed-entries-or-assets-within-json-rte).
 
-### Get ImageTransformation utilities from app-utils repository
+### Get ImageTransformation Utilities from the app-utils Repository
 
-Go to [image-preset-builder](https://github.com/contentstack/app-utils/tree/main/image-preset-builder) inside the [@contentstack/app-utils](https://github.com/contentstack/app-utils/) in GitHub. Here you will find utility functions that will help you to render your image as per your preset. Find the language in which you are working and go to that folder. Inside this folder, you will find a file named **ImageTransformation**. Copy this file into your project. This file will contain all the functions you’ll need for rendering your image.
+To add the image transformation functions that help apply image style and formatting to your project, perform the following steps:
 
-### Generate styles and URL for image
+1. Go to [image-preset-builder](https://github.com/contentstack/app-utils/tree/main/image-preset-builder) inside the [@contentstack/app-utils](https://github.com/contentstack/app-utils/) repository in GitHub. Here, you will find utility functions that will help you render your image as per your preset.
+1. Open the folder that contains functions suitable to your project's programming language. Inside this folder, you will find a file that contains the formatting functions, e.g., ImageTransformation.js in JavaScript.
+1. Copy the file into your project. This file will contain all the functions you need to render your image.
 
-1. From the **ImageTransformation** file, we will use resolvePresetByPresetUID() function to generate an URL for the image that will contain the preset information. This function will take one object as an argument and this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema.
+### Generate Styles and URLs for Images
 
-    For e.g., here we extract asset from custom-image-field.asset, presetUID from custom-image-field.metadata.preset.uid and extension_uid from custom-image-field.metadata.extension_uid.
+Image Preset Builder allows you to build a preset consisting of different styles offered by either Contentstack or other CSS building sources. The server may not generate styles for special scenarios such as image focal point definitions and image rotation axis points. Hence, some transformation projects need you to define CSS styles locally or use third-party packages.
 
-    This function will return a **new asset object containing the new image URL.** Now, get the URL from the new asset and pass it to the <img/> tag’s src attribute. This will resolve most of your image transformation. But, there is some transformation that needs to have CSS styles defined locally in the project. We also need to take care of the focal point feature, locally.
+To apply appropriate style and formatting to your image presets while rendering them on the frontend, perform the following steps:
 
-1. So, the next step will be to generate the CSS styles from the preset. For this, we are going to use resolvePresetStylesByPresetUID() function. This function accepts one object as an argument and this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema.
-   This function will return inline styles for the image. These styles could be added to the image.
-1. Finally, we will need to handle the focal point (if applicable). First, we need to get the co-ordinates of the focal point. For this, we will use fetchPresetByPresetUID(). this object will require asset, presetUID, extension_uid. These values could be extracted from the above schema. This function will return a preset object.
-   For e.g., this is how the return preset object will look like.
+1. **Generate Image URL**
 
-```js
-{
-    "uid": "sample-uid",
-    "name": "Focal Point",
-    "options": {
-        "transform": {
-            "width": 864,
-            "height": 712
-        },
-        "quality": "100",
-        "image-type": "jpeg",
-        "focal-point": {
-            "x": -0.5701133487044711,
-            "y": 0.030206030249075533
+    From the ImageTransformation file, you can use the resolvePresetByPresetUID() function to generate a URL for the image that will contain the preset information.
+
+    This function will take one object as an argument, and this object will require asset, presetUID, and extension_uid. You can extract these values from the Custom field or JSON RTE schemas defined in the previous section.
+
+    For example, you can extract assets from custom-image-field.asset, presetUID from custom-image-field.metadata.preset.uid and extension_uid from custom-image-field.metadata.extension_uid.
+
+    This function will return a **new asset object containing the new image URL**. Now, get the URL from the new asset and pass it against the <img/> tag’s src attribute.
+
+2. **Generate CSS Styles for Image Presets**
+
+    Next, to generate the CSS styles from the preset, you can use the resolvePresetStylesByPresetUID() function.
+
+    This function accepts one object as an argument, and this object will require asset, presetUID, and extension_uid. You can extract these values from the Custom field or JSON RTE schemas defined in the previous section.
+
+    The resolvePresetStylesByPresetUID() function will return inline styles for the image. These styles could be added to the <img/> tag.
+
+3. **Handle Focal Image Points**
+
+    Finally, you need to handle focal points (if applicable to your image preset). To retrieve the coordinates of the focal point, you can use the fetchPresetByPresetUID() function.
+
+    This function accepts one object as an argument, and this object will require asset, presetUID, and extension_uid. You can extract these values from the Custom field or JSON RTE schemas defined in the previous section. The fetchPresetByPresetUID() function will return a preset object.
+
+    Here is an example of the schema for the returned preset object:
+
+    ```js
+    {
+        "uid": "sample-uid",
+        "name": "Focal Point",
+        "options": {
+            "transform": {
+                "width": 864,
+                "height": 712
+            },
+            "quality": "100",
+            "image-type": "jpeg",
+            "focal-point": {
+                "x": -0.5701133487044711,
+                "y": 0.030206030249075533
+            }
         }
     }
-}
-```
+    ```
 
-We can retrieve the focal point from the focal-point object inside the preset object. This focal point object will contain x and y co-ordinates. Now, for displaying the focal point, we need to use some 3rd party packages that will accept these co-ordinates and display the image accordingly. For javascript, [image-focus](https://www.npmjs.com/package/image-focus) library.
+    You can retrieve the focal point coordinates from the focal-point object. You need to use some third-party packages that will accept these coordinates and display the image accordingly on the frontend.
+
+    For example, you can use the [image-focus](https://www.npmjs.com/package/image-focus) library for JavaScript.
