@@ -112,11 +112,11 @@ export const fetchPresetByPresetName = ({ asset, extension_uid, presetName }) =>
     }
     if (asset && asset._metadata && asset._metadata.extensions && asset._metadata.extensions[extension_uid]) {
         const metadatas = asset._metadata.extensions[extension_uid]
-        const local_metadata = metadatas.find((metadata) => metadata.is_global === false)
+        const local_metadata = metadatas.find((metadata) => metadata.scope === "local")
         if (local_metadata.presets) {
             allPresets = [...allPresets, ...local_metadata.presets]
         }
-        const global_metadata = metadatas.find((metadata) => metadata.is_global === true)
+        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type")
         if (global_metadata.presets) {
             allPresets = [...allPresets, ...global_metadata.presets]
         }
@@ -185,11 +185,11 @@ export const fetchPresetByPresetUID = ({ asset, extension_uid, presetUID }) => {
     }
     if (asset && asset._metadata && asset._metadata.extensions && asset._metadata.extensions[extension_uid]) {
         const metadatas = asset._metadata.extensions[extension_uid]
-        const local_metadata = metadatas.find((metadata) => metadata.is_global === false)
+        const local_metadata = metadatas.find((metadata) => metadata.scope === "local")
         if (local_metadata.presets) {
             allPresets = [...allPresets, ...local_metadata.presets]
         }
-        const global_metadata = metadatas.find((metadata) => metadata.is_global === true)
+        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type")
         if (global_metadata.presets) {
             allPresets = [...allPresets, ...global_metadata.presets]
         }
