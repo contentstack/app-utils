@@ -31,7 +31,7 @@ const getImageStyles = (options) => {
 }
 const getEffectsParams = (effects) => {
     let params = ""
-    if (effects && (typeof effects === "object") && Object.keys(effects).length > 0) {
+    if (!(effects && (typeof effects === "object") && Object.keys(effects).length > 0)) {
         return params
     }
     if (effects.brightness) {
@@ -79,7 +79,7 @@ const getTranformParams = (transformVal) => {
  * @param {string} extension_uid
  * @returns {object}
  * @description This function will resolve the preset for the asset and update url
- *  @example const newAsset = resolvePresetByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const newAsset = resolvePresetByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"*****************"})
  * 
  */
 export const resolvePresetByPresetName = ({ asset, presetName, extension_uid }) => {
@@ -100,7 +100,7 @@ export const resolvePresetByPresetName = ({ asset, presetName, extension_uid }) 
  * @param {string} extension_uid
  * @returns {object}
  * @description This function find and return the preset for the asset
- *  @example const preset = fetchPresetByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const preset = fetchPresetByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"*****************"})
  */
 export const fetchPresetByPresetName = ({ asset, extension_uid, presetName }) => {
     let allPresets = []
@@ -112,11 +112,11 @@ export const fetchPresetByPresetName = ({ asset, extension_uid, presetName }) =>
     }
     if (asset && asset._metadata && asset._metadata.extensions && asset._metadata.extensions[extension_uid]) {
         const metadatas = asset._metadata.extensions[extension_uid]
-        const local_metadata = metadatas.find((metadata) => metadata.scope === "local")
+        const local_metadata = metadatas.find((metadata) => metadata.scope === "local") || {}
         if (local_metadata.presets) {
             allPresets = [...allPresets, ...local_metadata.presets]
         }
-        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type")
+        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type") || {}
         if (global_metadata.presets) {
             allPresets = [...allPresets, ...global_metadata.presets]
         }
@@ -132,7 +132,7 @@ export const fetchPresetByPresetName = ({ asset, extension_uid, presetName }) =>
  * @returns {object}
  * @description This function will resolve the preset for the asset and return styles 
  * 
- *  @example const imgStyles = resolvePresetStylesByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const imgStyles = resolvePresetStylesByPresetName({asset:asset, presetName:"Blog Preset", extension_uid:"*****************"})
  */
 export const resolvePresetStylesByPresetName = ({ asset, presetName, extension_uid }) => {
     let options = {}
@@ -153,7 +153,7 @@ export const resolvePresetStylesByPresetName = ({ asset, presetName, extension_u
  * @param {string} extension_uid
  * @returns {object}
  * @description This function will resolve the preset for the asset and update url
- *  @example const newAsset = resolvePresetByPresetUID({asset:asset, presetUID:"1b2f45cf-c7e1-42be-b178-f89d7535e1dd", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const newAsset = resolvePresetByPresetUID({asset:asset, presetUID:"*****************", extension_uid:"*****************"})
  */
 export const resolvePresetByPresetUID = ({ asset, presetUID, extension_uid }) => {
     const preset = fetchPresetByPresetUID({
@@ -173,7 +173,7 @@ export const resolvePresetByPresetUID = ({ asset, presetUID, extension_uid }) =>
  * @param {string} extension_uid
  * @returns {object}
  * @description This function find and return the preset for the asset
- *  @example const presets = fetchPresetByPresetUID({asset:asset, presetUID:"1b2f45cf-c7e1-42be-b178-f89d7535e1dd", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const presets = fetchPresetByPresetUID({asset:asset, presetUID:"*****************", extension_uid:"*****************"})
  */
 export const fetchPresetByPresetUID = ({ asset, extension_uid, presetUID }) => {
     let allPresets = []
@@ -185,11 +185,11 @@ export const fetchPresetByPresetUID = ({ asset, extension_uid, presetUID }) => {
     }
     if (asset && asset._metadata && asset._metadata.extensions && asset._metadata.extensions[extension_uid]) {
         const metadatas = asset._metadata.extensions[extension_uid]
-        const local_metadata = metadatas.find((metadata) => metadata.scope === "local")
+        const local_metadata = metadatas.find((metadata) => metadata.scope === "local") || {}
         if (local_metadata.presets) {
             allPresets = [...allPresets, ...local_metadata.presets]
         }
-        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type")
+        const global_metadata = metadatas.find((metadata) => metadata.scope === "content_type") || {}
         if (global_metadata.presets) {
             allPresets = [...allPresets, ...global_metadata.presets]
         }
@@ -206,7 +206,7 @@ export const fetchPresetByPresetUID = ({ asset, extension_uid, presetUID }) => {
  * @returns {object}
  * @description This function will resolve the preset for the asset and return styles 
  * 
- *  @example const imgStyles = resolvePresetStylesByPresetUID({asset:asset, presetUID:"1b2f45cf-c7e1-42be-b178-f89d7535e1dd", extension_uid:"blt496ded5c547a58a6"})
+ *  @example const imgStyles = resolvePresetStylesByPresetUID({asset:asset, presetUID:"*****************", extension_uid:"*****************"})
  */
 export const resolvePresetStylesByPresetUID = ({ asset, presetUID, extension_uid }) => {
     let options = {}
