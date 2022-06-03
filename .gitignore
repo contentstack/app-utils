@@ -6,13 +6,12 @@ vendor
 **/.DS_Store
 
 # Ruby
-/.bundle/
-/.yardoc
-/_yardoc/
-/coverage/
-/doc/
-/pkg/
-/spec/reports/
-/tmp/
-/bin/
-.dccache
+/image-preset-builder/ruby/.bundle/
+/image-preset-builder/ruby/.yardoc
+/image-preset-builder/ruby/_yardoc/
+/image-preset-builder/ruby/coverage/
+/image-preset-builder/ruby/doc/
+/image-preset-builder/ruby/pkg/
+/image-preset-builder/ruby/spec/reports/
+/image-preset-builder/ruby/tmp/
+/image-preset-builder/ruby/bin/
