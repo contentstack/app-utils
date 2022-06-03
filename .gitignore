@@ -4,3 +4,15 @@ vendor
 # OS specific
 .DS_Store
 **/.DS_Store
+
+# Ruby
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/bin/
+.dccache
