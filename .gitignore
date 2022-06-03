@@ -15,3 +15,13 @@ vendor
 /image-preset-builder/ruby/spec/reports/
 /image-preset-builder/ruby/tmp/
 /image-preset-builder/ruby/bin/
+
+#Swift
+/image-preset-builder/swift/.build
+/image-preset-builder/swift/Packages
+/image-preset-builder/swift/*.xcodeproj
+/image-preset-builder/swift/xcuserdata/
+/image-preset-builder/swift/DerivedData/
+/image-preset-builder/swift/.swiftpm/config/registries.json
+/image-preset-builder/swift/.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+/image-preset-builder/swift/.netrc
