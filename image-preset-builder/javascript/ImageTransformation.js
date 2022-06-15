@@ -1,3 +1,16 @@
+const filterBGColor = (color) => {
+    return color[0] === '#' ? color.slice(1) :color
+}
+const alignColumn = {
+  start: 'left',
+  end: 'right',
+  center: 'center',
+}
+const alignRow = {
+  start: 'top',
+  end: 'bottom',
+  center: 'center',
+}
 const getImageURL = (src, options) => {
     let newsrc = src;
     let queryParams = "";
@@ -12,6 +25,43 @@ const getImageURL = (src, options) => {
     }
     if (options.effects) {
         queryParams += getEffectsParams(options.effects)
+    }
+    if (options.overlay) {
+        if(options.overlay.overlay){
+          const pathName = new URL(options.overlay.overlay).pathname
+          queryParams+= `&overlay=${pathName}`
+        }
+        if(options.overlay?.["overlay-align"]){
+          const alignPosition = options.overlay?.["overlay-align"].split(',')
+          const align = `${alignColumn[alignPosition[0]]},${alignRow[alignPosition[1]]}`
+          queryParams+= `&overlay-align=${align}`
+        }
+        if(options.overlay?.["overlay-repeat"] && options.overlay?.["overlay-repeat"] !== 'none'){
+          queryParams+= `&overlay-repeat=${options.overlay?.["overlay-repeat"]}`
+        }
+        if(options.overlay?.["overlay-height"]){
+          queryParams+= `&overlay-height=${options.overlay?.["overlay-height"]}`
+        }
+        if(options.overlay?.["overlay-width"]){
+          queryParams+= `&overlay-width=${options.overlay?.["overlay-width"]}`
+        }
+    }
+    if(options['crop']){
+        queryParams+= `&crop=${options['crop'].width},${options['crop'].height},x${options['crop'].x},y${options['crop'].y}`
+    }
+    if(options['frame']){
+        let padQuery = ''
+        if(options?.frame?.padding){
+            if(typeof options?.frame?.padding === "string"){
+                padQuery = `&pad=${options?.frame?.padding}`
+            }else{
+                padQuery = `&pad=${options?.frame?.padding?.top},${options?.frame?.padding?.right},${options?.frame?.padding?.bottom},${options?.frame?.padding?.left}`
+            }
+        }
+        if(options?.frame?.colorCode){
+            padQuery += `&bg-color=${filterBGColor(options?.frame?.colorCode)}`
+        }
+        queryParams+= padQuery
     }
     if (queryParams) {
         if (newsrc.indexOf("?") > -1) {
