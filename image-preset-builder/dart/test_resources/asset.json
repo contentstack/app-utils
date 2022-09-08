@@ -1,0 +1,107 @@
+{
+  "uid": "asset_uid",
+  "created_by": "create_by",
+  "updated_by": "update_by",
+  "content_type": "image/jpeg",
+  "file_size": "62181",
+  "tags": [],
+  "filename": "crop_area.jpeg",
+  "url": "http://image.contenstack.com/crop_area.jpeg",
+  "is_dir": false,
+  "parent_uid": null,
+  "path": [],
+  "_version": 1,
+  "title": "crop_area.jpeg",
+  "dimension": {
+    "height": 712,
+    "width": 864
+  },
+  "_metadata": {
+    "extensions": {
+      "blt777777777": [
+        {
+          "local_data": "main",
+          "presets": [
+            {
+              "uid": "preset_01",
+              "name": "Local Preset",
+              "options": {
+                "transform": {
+                  "height": 500,
+                  "width": 500,
+                  "flip-mode": "horiz",
+                  "rotate": 40
+                },
+                "focal-point": {
+                  "x": -0.668935003427432,
+                  "y": -0.9220385351936531
+                },
+                "quality": "100",
+                "image-type": "jpeg"
+              }
+            },
+            {
+              "uid": "preset_02",
+              "name": "WithCrop",
+              "options": {
+                "quality": "100",
+                "transform": {
+                  "height": "569.6",
+                  "width": "569.6",
+                  "flip-mode": "both"
+                },
+                "image-type": "jpeg",
+                "crop": {
+                  "height": "569.6",
+                  "width": "569.6",
+                  "x": "147.2",
+                  "y": "71.2"
+                }
+              }
+            },
+            {
+              "uid": "preset_03",
+              "name": "Filter",
+              "options": {
+                "quality": "100",
+                "transform": {
+                  "height": 712,
+                  "width": 864
+                },
+                "image-type": "jpeg",
+                "effects": {
+                  "brightness": 52,
+                  "contrast": 15,
+                  "saturate": -30,
+                  "blur": 16,
+                  "sharpen": {
+                    "amount": 9,
+                    "radius": 669,
+                    "threshold": 207
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "presets": [
+            {
+              "uid": "preset_04",
+              "name": "Global Preset",
+              "options": {
+                "quality": "100",
+                "transform": {
+                  "height": "712",
+                  "width": "864",
+                  "flip-mode": "verti"
+                },
+                "image-type": "jpeg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+__title__ = 'preset-python'
+__author__ = 'ishaileshmishra'
+__status__ = 'debug'
+__version__ = '0.0.1'
+__email__ = 'mshaileshr@gmail.com'
