@@ -9,5 +9,3 @@
 .github/workflows/policy-scan.yml @contentstack/security-admin
 
 .github/workflows/issues-jira.yml @contentstack/security-admin
-
-.github/workflows/codeql-anaylsis.yml @contentstack/security-admin
