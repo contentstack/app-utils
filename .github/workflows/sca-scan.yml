@@ -3,13 +3,17 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  security:
+  security-sca:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/cocoapods@master
+        run: snyk test --all-projects --json-file-output=snyk.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --fail-on=all
+        continue-on-error: true
+      - uses: contentstack/sca-policy@main

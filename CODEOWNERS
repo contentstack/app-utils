@@ -1,1 +1,5 @@
-* @contentstack/security-admin @contentstack/ghost-admin
+* @contentstack/developer-ecosystem-pr-reviewers
+.github/workflows/ @contentstack/security-admin
+**/.snyk @contentstack/security-admin
+**/CODEOWNERS @contentstack/security-admin
+**/.gitguardian.yaml @contentstack/security-admin
